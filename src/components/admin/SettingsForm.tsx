@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { upsertSiteSettings } from '@/actions/upsertSiteSettings';
-import { createClient } from '@/lib/supabase/client';
+import { getSupabaseClient } from '@/lib/supabase/client';
 import type { SiteSettings } from '@/types/settings';
 
 interface SettingsFormProps {
@@ -45,7 +45,7 @@ export function SettingsForm({ settings }: SettingsFormProps) {
     }
 
     try {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
       const fileName = `hero/${crypto.randomUUID()}.${ext}`;
 

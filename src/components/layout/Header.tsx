@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -37,7 +37,7 @@ const frFlag = (
   </svg>
 );
 
-const locales: { code: Locale; label: string; flag: JSX.Element }[] = [
+const locales: { code: Locale; label: string; flag: ReactNode }[] = [
   { code: 'en', label: 'EN', flag: ukFlag },
   { code: 'fr', label: 'FR', flag: frFlag },
 ];
