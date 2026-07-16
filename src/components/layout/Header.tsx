@@ -53,7 +53,7 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#050505]">
+    <header className="sticky top-0 z-40 bg-[#050505] border-b border-white/[0.08]">
       <Container>
         <div className="flex h-20 items-center justify-between">
           <Logo dark />
@@ -108,7 +108,7 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
                 </a>
               )}
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 ml-6">
               {locales.map((l) => (
                 <button
                   key={l.code}
