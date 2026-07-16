@@ -20,7 +20,7 @@ interface HeaderProps {
 }
 
 const ukFlag = (
-  <svg className="h-4 w-4 shrink-0 rounded-sm" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg className="h-3 w-3 shrink-0 rounded-sm" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="640" height="480" fill="#012169"/>
     <path d="M0 0l640 480M640 0L0 480" stroke="#fff" strokeWidth="60"/>
     <path d="M0 0l640 480M640 0L0 480" stroke="#C8102E" strokeWidth="36"/>
@@ -30,7 +30,7 @@ const ukFlag = (
 );
 
 const frFlag = (
-  <svg className="h-4 w-4 shrink-0 rounded-sm" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg className="h-3 w-3 shrink-0 rounded-sm" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="213.3" height="480" fill="#002654"/>
     <rect x="213.3" width="213.4" height="480" fill="#fff"/>
     <rect x="426.7" width="213.3" height="480" fill="#CE1126"/>
@@ -74,23 +74,6 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              {locales.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => handleSetLocale(l.code)}
-                  className={cn(
-                    'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all',
-                    locale === l.code
-                      ? 'bg-white/[0.12] text-white border border-white/[0.25]'
-                      : 'border border-white/[0.12] bg-white/[0.04] text-white/50 hover:border-white/[0.25] hover:bg-white/[0.08] hover:text-white',
-                  )}
-                >
-                  {l.flag}
-                  <span>{l.label}</span>
-                </button>
-              ))}
-            </div>
             <a
               href={`tel:${phone.replace(/\s/g, '')}`}
               className="text-[15px] font-medium text-white/60 hover:text-white transition-colors"
@@ -100,7 +83,7 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
             <Button href="/cars" size="md" className="!bg-amber-400 !text-amber-950 hover:!bg-amber-300 shadow-none">
               Browse Cars
             </Button>
-            <div className="ml-auto flex items-center gap-4">
+            <div className="flex items-center gap-4">
               {instagram_url && (
                 <a href={instagram_url} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all hover:scale-110" aria-label="Instagram">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -125,6 +108,23 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
                 </a>
               )}
             </div>
+            <div className="flex items-center gap-1">
+              {locales.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => handleSetLocale(l.code)}
+                  className={cn(
+                    'flex items-center gap-1 rounded-lg px-1.5 py-1 text-[10px] font-semibold transition-all',
+                    locale === l.code
+                      ? 'bg-white/[0.12] text-white border border-white/[0.25]'
+                      : 'border border-white/[0.12] bg-white/[0.04] text-white/50 hover:border-white/[0.25] hover:bg-white/[0.08] hover:text-white',
+                  )}
+                >
+                  {l.flag}
+                  <span>{l.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
@@ -134,7 +134,7 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
                   key={l.code}
                   onClick={() => handleSetLocale(l.code)}
                   className={cn(
-                    'flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs font-semibold transition-all',
+                    'flex items-center gap-1 rounded-lg px-1.5 py-1 text-[10px] font-semibold transition-all',
                     locale === l.code
                       ? 'bg-white/[0.12] text-white border border-white/[0.25]'
                       : 'border border-white/[0.12] bg-white/[0.04] text-white/50 hover:border-white/[0.25] hover:bg-white/[0.08] hover:text-white',
