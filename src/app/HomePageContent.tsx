@@ -46,6 +46,28 @@ export function HomePageContent({ settings, featuredCars }: HomePageContentProps
           <div className="pointer-events-none absolute -right-40 top-0 h-full w-1/2 bg-gradient-to-l from-amber-400/2 to-transparent" />
           <div className="pointer-events-none absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-amber-400/25 to-transparent md:block" />
 
+          {/* ─── Mobile full-bleed background ─── */}
+          <div className="absolute inset-0 z-[1] block md:hidden overflow-hidden">
+            {settings.hero_image_url ? (
+              <Image
+                src={settings.hero_image_url}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center bg-[#111]">
+                <span className="select-none text-5xl font-black tracking-tighter text-white/[0.04]">
+                  {settings.name}
+                </span>
+              </div>
+            )}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/30" />
+          </div>
+
+          {/* ─── Desktop right-side image ─── */}
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[55vw] overflow-hidden md:block">
             <div className="relative h-full w-full">
               {settings.hero_image_url ? (
@@ -118,31 +140,6 @@ export function HomePageContent({ settings, featuredCars }: HomePageContentProps
             </div>
           </Container>
 
-          <div className="relative z-10 block md:hidden">
-            <Container className="pb-16 pt-6">
-              <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#080808]">
-                <div className="relative aspect-[16/9]">
-                  {settings.hero_image_url ? (
-                    <Image
-                      src={settings.hero_image_url}
-                      alt=""
-                      fill
-                      sizes="100vw"
-                      className="object-cover"
-                      priority
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center bg-[#111]">
-                      <span className="select-none text-3xl font-black tracking-tighter text-white/[0.04]">
-                        {settings.name}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              </div>
-            </Container>
-          </div>
         </section>
 
         <BrandsMarquee />
