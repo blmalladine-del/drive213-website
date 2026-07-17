@@ -107,20 +107,24 @@ export function BookingForm({ car }: BookingFormProps) {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Input
-          label="Pickup Date"
-          name="pickup_date"
-          type="date"
-          required
-          error={fieldErrors.pickup_date?.[0]}
-        />
-        <Input
-          label="Return Date"
-          name="return_date"
-          type="date"
-          required
-          error={fieldErrors.return_date?.[0]}
-        />
+        <div className="min-w-0">
+          <Input
+            label="Pickup Date"
+            name="pickup_date"
+            type="date"
+            required
+            error={fieldErrors.pickup_date?.[0]}
+          />
+        </div>
+        <div className="min-w-0">
+          <Input
+            label="Return Date"
+            name="return_date"
+            type="date"
+            required
+            error={fieldErrors.return_date?.[0]}
+          />
+        </div>
       </div>
 
       <Textarea
