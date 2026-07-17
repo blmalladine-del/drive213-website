@@ -14,9 +14,15 @@ export function CarCard({ car, featured = false }: CarCardProps) {
 
   return (
     <Link href={`/cars/${car.slug}`} className="group block">
-      <div className={`relative overflow-hidden rounded-xl border border-white/[0.06] bg-black transition-all duration-500 hover:border-white/10 ${featured ? 'aspect-[4/3] md:aspect-[16/9]' : 'aspect-[4/5]'}`}>
+      <div className="flex flex-col overflow-hidden rounded-xl border border-white/[0.06] bg-black transition-all duration-500 hover:border-white/10">
         {/* Image */}
-        <div className={`absolute inset-0 ${!car.image_url ? `bg-gradient-to-br ${gradient}` : 'bg-black'}`}>
+        <div
+          className={`relative overflow-hidden ${
+            featured
+              ? 'aspect-[16/9] md:aspect-[21/9]'
+              : 'aspect-[16/10]'
+          } ${!car.image_url ? `bg-gradient-to-br ${gradient}` : 'bg-black'}`}
+        >
           {car.image_url ? (
             <Image
               src={car.image_url}
@@ -31,26 +37,31 @@ export function CarCard({ car, featured = false }: CarCardProps) {
               priority={featured}
               loading={featured ? undefined : 'lazy'}
             />
-          ) : null}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <span className="px-4 text-center text-lg font-bold text-white/40">
+                {car.brand} {car.model}
+              </span>
+            </div>
+          )}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+          {!car.is_available && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+              <div className="rounded-lg border border-amber-400/20 bg-amber-400/5 px-5 py-2.5 text-center">
+                <span className="text-sm font-semibold text-amber-400">Unavailable</span>
+                {car.unavailable_until && (
+                  <span className="block text-xs text-amber-400/60">
+                    Until {car.unavailable_until}
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Unavailable overlay */}
-        {!car.is_available && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60">
-            <div className="rounded-lg border border-amber-400/20 bg-amber-400/5 px-5 py-2.5 text-center">
-              <span className="text-sm font-semibold text-amber-400">Unavailable</span>
-              {car.unavailable_until && (
-                <span className="block text-xs text-amber-400/60">
-                  Until {car.unavailable_until}
-                </span>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Content overlay */}
-        <div className="absolute inset-0 z-[1] flex flex-col justify-end p-6">
+        {/* Content */}
+        <div className="flex flex-col gap-3 px-6 pb-6 pt-5">
           {/* Category + Price */}
           <div className="flex items-center justify-between">
             <span className="text-[12px] font-medium uppercase tracking-[0.15em] text-amber-400/60">
@@ -63,12 +74,12 @@ export function CarCard({ car, featured = false }: CarCardProps) {
           </div>
 
           {/* Car name */}
-          <h3 className={`font-bold text-white leading-tight mt-1 ${featured ? 'text-3xl md:text-4xl' : 'text-xl'}`}>
+          <h3 className={`font-bold text-white leading-tight ${featured ? 'text-3xl md:text-4xl' : 'text-xl'}`}>
             {car.brand} {car.model}
           </h3>
 
           {/* Metadata */}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/35 mt-2">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/35">
             <span>{car.year}</span>
             <span className="h-1 w-1 rounded-full bg-white/20" />
             <span className="capitalize">{car.transmission}</span>
@@ -79,7 +90,7 @@ export function CarCard({ car, featured = false }: CarCardProps) {
           </div>
 
           {/* CTA */}
-          <div className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-400 transition-all group-hover:text-amber-300">
+          <div className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-400 transition-all group-hover:text-amber-300">
             View Details
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
           </div>
