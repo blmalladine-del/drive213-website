@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -9,8 +9,7 @@ import { Logo } from '@/components/shared/Logo';
 import { Button } from '@/components/ui/Button';
 import { mainNavigation } from '@/config/navigation';
 import { cn } from '@/lib/utils';
-import { useLocale } from '@/lib/i18n/LanguageProvider';
-import { t, type Locale } from '@/lib/i18n/translations';
+import { t } from '@/lib/i18n/translations';
 
 interface HeaderProps {
   phone?: string;
@@ -19,38 +18,9 @@ interface HeaderProps {
   facebook_url?: string;
 }
 
-const ukFlag = (
-  <svg className="h-3 w-3 shrink-0 rounded-sm" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="640" height="480" fill="#012169"/>
-    <path d="M0 0l640 480M640 0L0 480" stroke="#fff" strokeWidth="60"/>
-    <path d="M0 0l640 480M640 0L0 480" stroke="#C8102E" strokeWidth="36"/>
-    <path d="M0 240h640M320 0v480" stroke="#fff" strokeWidth="100"/>
-    <path d="M0 240h640M320 0v480" stroke="#C8102E" strokeWidth="60"/>
-  </svg>
-);
-
-const frFlag = (
-  <svg className="h-3 w-3 shrink-0 rounded-sm" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="213.3" height="480" fill="#002654"/>
-    <rect x="213.3" width="213.4" height="480" fill="#fff"/>
-    <rect x="426.7" width="213.3" height="480" fill="#CE1126"/>
-  </svg>
-);
-
-const locales: { code: Locale; label: string; flag: ReactNode }[] = [
-  { code: 'en', label: 'EN', flag: ukFlag },
-  { code: 'fr', label: 'FR', flag: frFlag },
-];
-
 export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url, facebook_url }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const { locale, setLocale } = useLocale();
-
-  const handleSetLocale = (l: Locale) => {
-    setLocale(l);
-    document.cookie = `locale=${l};path=/;max-age=31536000`;
-  };
 
   return (
     <header className="sticky top-0 z-40 bg-[#050505] border-b border-white/[0.08]">
@@ -68,7 +38,7 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
                   pathname === link.href ? 'text-white' : 'text-white/60',
                 )}
               >
-                {t(`nav.${link.label.toLowerCase()}` as any, locale)}
+                {t(`nav.${link.label.toLowerCase()}` as any, 'en')}
               </Link>
             ))}
           </nav>
@@ -108,43 +78,10 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
                 </a>
               )}
             </div>
-            <div className="flex items-center gap-1 ml-6">
-              {locales.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => handleSetLocale(l.code)}
-                  className={cn(
-                    'flex items-center gap-1 rounded-lg px-1.5 py-1 text-[10px] font-semibold transition-all',
-                    locale === l.code
-                      ? 'bg-white/[0.12] text-white border border-white/[0.25]'
-                      : 'border border-white/[0.12] bg-white/[0.04] text-white/50 hover:border-white/[0.25] hover:bg-white/[0.08] hover:text-white',
-                  )}
-                >
-                  {l.flag}
-                  <span>{l.label}</span>
-                </button>
-              ))}
-            </div>
+
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
-            <div className="flex items-center gap-1">
-              {locales.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => handleSetLocale(l.code)}
-                  className={cn(
-                    'flex items-center gap-1 rounded-lg px-1.5 py-1 text-[10px] font-semibold transition-all',
-                    locale === l.code
-                      ? 'bg-white/[0.12] text-white border border-white/[0.25]'
-                      : 'border border-white/[0.12] bg-white/[0.04] text-white/50 hover:border-white/[0.25] hover:bg-white/[0.08] hover:text-white',
-                  )}
-                >
-                  {l.flag}
-                  <span>{l.label}</span>
-                </button>
-              ))}
-            </div>
             <button
               className="p-2 text-white"
               onClick={() => setIsOpen(!isOpen)}
@@ -170,7 +107,7 @@ export function Header({ phone = '+1 (555) 123-4567', instagram_url, tiktok_url,
                     pathname === link.href ? 'text-white' : 'text-white/60',
                   )}
                 >
-                  {t(`nav.${link.label.toLowerCase()}` as any, locale)}
+                  {t(`nav.${link.label.toLowerCase()}` as any, 'en')}
                 </Link>
               ))}
             </nav>
